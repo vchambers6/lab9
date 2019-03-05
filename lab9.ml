@@ -85,18 +85,30 @@ pencil on paper, rather than typing them in.
 ......................................................................
 Exercise 4. Carry out the derivation for the semantics of the
 expression 8 - 2.
+8 - 2 => 
+  | 8 => 8
+  | 2 => 2
+  => 6
 ....................................................................*)
 
 (*....................................................................
 Exercise 5. Carry out the derivation for the semantics of the
 expression 6 * 6.
+6 * 6 =>
+  | 6 => 6
+  | 6 => 6
+  => 36
 ....................................................................*)
 
 (*....................................................................
 Exercise 6. What is the result of the following substitution according
 to the definition in Figure 13.3?  
 
-    (x * x) [x |-> 6]
+(x * x) [x |-> 6] 
+= x[x |-> 6] * x[x |-> 6] 
+= 6 * x[x |-> 6]
+= 6 * 6
+
 ....................................................................*)
 
 (*....................................................................
@@ -106,12 +118,13 @@ equation in some exercises below. What should such an equation look
 like? (Below, we'll refer to this as Eq. 11.)
 ....................................................................*)
 
-(*    (P R)[x |-> Q] = ????    *)
+(*    (P R)[x |-> Q] = P[x |-> Q] R[x |-> Q]   *)
 (*....................................................................
 Exercise 8. What is the result of the following substitution according
 to the definition in Figure 13.3?
 
     ((fun x -> x * x) (x - 2)) [x |-> 8]
+    x^2 - 4x + 4 = 64 - 32 + 4 = 36
 ....................................................................*)
 
 (*....................................................................
@@ -212,15 +225,21 @@ type varspec = string ;;
 
 type binop =
   | Plus 
-  | Divide ;;
+  | Minus
+  | Divide 
+  | Times;;
 
 type unop = 
-  | NotYetImplemented ;;
+  | Neg 
+  | Sin
+  | Cos
+  | Ln;;
 
 type expr =
   | Int of int
   | Var of varspec
   | Binop of binop * expr * expr
+  | Unop of unop * expr
   | Let of varspec * expr * expr ;;
 
 (*....................................................................
